@@ -15,7 +15,7 @@ public class CardPresenter extends Presenter {
     private static int CARD_HEIGHT = 500;
 
     static class ViewHolder extends Presenter.ViewHolder {
-        private Picture picture;
+
         private ImageCardView mCardView;
 
 
@@ -23,12 +23,6 @@ public class CardPresenter extends Presenter {
             super(view);
             mCardView = (ImageCardView) view;
         }
-
-        public void setPicture(Picture m) {
-            picture = m;
-        }
-
-
 
 
     }
@@ -47,7 +41,7 @@ public class CardPresenter extends Presenter {
     @Override
     public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object item) {
         Picture picture = (Picture) item;
-        ((ViewHolder) viewHolder).setPicture(picture);
+
 
 
         ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);

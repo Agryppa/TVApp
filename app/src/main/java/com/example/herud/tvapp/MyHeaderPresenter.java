@@ -48,14 +48,10 @@ public class MyHeaderPresenter extends RowHeaderPresenter {
 
     @Override
     public void onUnbindViewHolder(Presenter.ViewHolder viewHolder) {
-        // no op
     }
 
-    // TODO: TEMP - remove me when leanback onCreateViewHolder no longer sets the mUnselectAlpha,AND
-    // also assumes the xml inflation will return a RowHeaderView
     @Override
     protected void onSelectLevelChanged(RowHeaderPresenter.ViewHolder holder) {
-        // this is a temporary fix
         holder.view.setAlpha(mUnselectedAlpha + holder.getSelectLevel() *
                 (1.0f - mUnselectedAlpha));
     }
