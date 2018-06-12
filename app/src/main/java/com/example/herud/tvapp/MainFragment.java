@@ -11,6 +11,7 @@ import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.widget.PresenterSelector;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -22,8 +23,7 @@ import java.util.ArrayList;
 public class MainFragment extends BrowseFragment {
 
     private ArrayObjectAdapter mRowsAdapter;
-    private static final int GRID_ITEM_WIDTH = 350;
-    private static final int GRID_ITEM_HEIGHT = 500;
+
     private ArrayList<Picture>list;
     private void fill()
     {
@@ -40,13 +40,6 @@ public class MainFragment extends BrowseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        setupUIElements();
-
-        loadRows();
-    }
-
-    private void setupUIElements() {
-
         setTitle("An android tv app");
 
         setHeadersState(HEADERS_ENABLED);
@@ -55,7 +48,15 @@ public class MainFragment extends BrowseFragment {
 
         setBrandColor(getResources().getColor(R.color.lb_basic_card_bg_color));
         setSearchAffordanceColor(getResources().getColor(R.color.lb_basic_card_bg_color));
+        setHeaderPresenterSelector(new PresenterSelector() {
+            @Override
+            public Presenter getPresenter(Object o) {
+                return new MyHeaderPresenter();
+            }
+        });
+        loadRows();
     }
+
 
     private void loadRows() {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
@@ -64,12 +65,11 @@ public class MainFragment extends BrowseFragment {
         CardPresenter cardPresenter = new CardPresenter();
 
         for(int i=0; i<list.size(); i++) {
-            HeaderItem cardPresenterHeader = new HeaderItem(i, list.get(i).getName());
+            MyHeader cardPresenterHeader = new MyHeader(i, "",list.get(i).getId());
             ArrayObjectAdapter aObjAd=new ArrayObjectAdapter((cardPresenter));
 
 
             aObjAd.add(list.get(i));
-
             mRowsAdapter.add(new ListRow(cardPresenterHeader, aObjAd));
 
 
@@ -80,28 +80,6 @@ public class MainFragment extends BrowseFragment {
         setAdapter(mRowsAdapter);
     }
 
-    private class GridItemPresenter extends Presenter {
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent) {
-            TextView view = new TextView(parent.getContext());
-            view.setLayoutParams(new ViewGroup.LayoutParams(GRID_ITEM_WIDTH, GRID_ITEM_HEIGHT));
-            view.setFocusable(true);
-            view.setFocusableInTouchMode(true);
-            view.setBackgroundColor(getResources().getColor(R.color.lb_default_search_color));
-            view.setTextColor(Color.WHITE);
-            view.setGravity(Gravity.CENTER);
-            return new ViewHolder(view);
-        }
 
-        @Override
-        public void onBindViewHolder(ViewHolder viewHolder, Object item) {
-            ((TextView) viewHolder.view).setText((String) item);
-        }
-
-        @Override
-        public void onUnbindViewHolder(ViewHolder viewHolder) {
-
-        }
-    }
 
 }

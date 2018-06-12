@@ -1,26 +1,20 @@
 package com.example.herud.tvapp;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 
 public class CardPresenter extends Presenter {
 
-    private static final String TAG = CardPresenter.class.getSimpleName();
-
     private static Context mContext;
     private static int CARD_WIDTH = 350;
     private static int CARD_HEIGHT = 500;
 
     static class ViewHolder extends Presenter.ViewHolder {
-        private final Drawable mDefaultCardImage;
         private Picture picture;
         private ImageCardView mCardView;
 
@@ -28,24 +22,14 @@ public class CardPresenter extends Presenter {
         public ViewHolder(View view) {
             super(view);
             mCardView = (ImageCardView) view;
-            mDefaultCardImage = mContext.getResources().getDrawable(R.drawable.aooexwx_700b);
         }
 
         public void setPicture(Picture m) {
             picture = m;
         }
 
-        public Picture getPicture() {
-            return picture;
-        }
 
-        public ImageCardView getCardView() {
-            return mCardView;
-        }
 
-        public Drawable getDefaultCardImage() {
-            return mDefaultCardImage;
-        }
 
     }
 
@@ -76,7 +60,6 @@ public class CardPresenter extends Presenter {
 
     @Override
     public void onViewAttachedToWindow(Presenter.ViewHolder viewHolder) {
-        // TO DO
     }
 
 }
